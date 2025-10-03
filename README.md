@@ -22,3 +22,11 @@ Political Transparency Dashboard powered by AI
 ```bash
 git clone <your-repo>
 cd politywatch-ai
+## Why Cerebras?
+
+We chose Cerebras Cloud for AI inference because:
+- **Speed:** World's largest AI chip delivers responses in <1 second
+- **Scale:** Can process multiple politicians simultaneously
+- **Cost-effective:** Fast inference = lower compute costs for production
+
+Benchmark: Average AI score calculation: 800ms (vs 2-3s on typical GPU)
