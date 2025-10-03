@@ -5,8 +5,8 @@ services:
     build: ./backend
     ports:
       - "8000:8000"
-    environment:
-      - CEREBRAS_API_KEY=${CEREBRAS_API_KEY}
+    env_file:
+      - .env
     volumes:
       - ./backend:/app
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
@@ -15,8 +15,8 @@ services:
     build: ./frontend
     ports:
       - "3000:3000"
-    environment:
-      - VITE_API_URL=http://localhost:8000/api
+    env_file:
+      - .env
     volumes:
       - ./frontend:/app
       - /app/node_modules

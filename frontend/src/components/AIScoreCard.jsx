@@ -5,14 +5,20 @@ import { AlertTriangle } from 'lucide-react';
 export default function AIScoreCard({ politician }) {
   const [aiScore, setAiScore] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [responseTime, setResponseTime] = useState(null);
 
   useEffect(() => {
     const fetchScore = async () => {
       setLoading(true);
+      const startTime = performance.now(); // Start timer
       const result = await api.getAIScore(politician);
+      const endTime = performance.now();   // End timer
+
+      setResponseTime((endTime - startTime).toFixed(0)); // ms
       setAiScore(result);
       setLoading(false);
     };
+
     fetchScore();
   }, [politician]);
 
@@ -28,26 +34,52 @@ export default function AIScoreCard({ politician }) {
   }
 
   const score = aiScore?.score || 50;
-  const riskLevel = score > 70 ? 'High Risk' : score > 40 ? 'Moderate Risk' : 'Low Risk';
-  const riskColor = score > 70 ? 'red' : score > 40 ? 'yellow' : 'green';
+  const riskLevel =
+    score > 70 ? 'High Risk' : score > 40 ? 'Moderate Risk' : 'Low Risk';
+  const riskColor =
+    score > 70 ? 'red' : score > 40 ? 'yellow' : 'green';
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-6">
+      {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-xl font-bold text-gray-800">🎯 AI Accountability Score</h3>
-        <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">Powered by Cerebras AI</span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">
+            Powered by Cerebras AI
+          </span>
+          {responseTime && (
+            <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
+              ⚡ {responseTime}ms
+            </span>
+          )}
+        </div>
       </div>
 
+      {/* Circular score */}
       <div className="flex items-center justify-center mb-6">
         <div className="relative w-40 h-40">
           <svg className="transform -rotate-90 w-40 h-40">
-            <circle cx="80" cy="80" r="70" stroke="#e5e7eb" strokeWidth="10" fill="none"/>
-            <circle 
-              cx="80" 
-              cy="80" 
-              r="70" 
-              stroke={riskColor === 'red' ? '#ef4444' : riskColor === 'yellow' ? '#f59e0b' : '#10b981'} 
-              strokeWidth="10" 
+            <circle
+              cx="80"
+              cy="80"
+              r="70"
+              stroke="#e5e7eb"
+              strokeWidth="10"
+              fill="none"
+            />
+            <circle
+              cx="80"
+              cy="80"
+              r="70"
+              stroke={
+                riskColor === 'red'
+                  ? '#ef4444'
+                  : riskColor === 'yellow'
+                  ? '#f59e0b'
+                  : '#10b981'
+              }
+              strokeWidth="10"
               fill="none"
               strokeDasharray="440"
               strokeDashoffset={440 - (440 * score) / 100}
@@ -55,7 +87,15 @@ export default function AIScoreCard({ politician }) {
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className={`text-4xl font-bold ${riskColor === 'red' ? 'text-red-600' : riskColor === 'yellow' ? 'text-yellow-600' : 'text-green-600'}`}>
+            <span
+              className={`text-4xl font-bold ${
+                riskColor === 'red'
+                  ? 'text-red-600'
+                  : riskColor === 'yellow'
+                  ? 'text-yellow-600'
+                  : 'text-green-600'
+              }`}
+            >
               {score}
             </span>
             <span className="text-gray-600 text-sm">/100</span>
@@ -63,13 +103,23 @@ export default function AIScoreCard({ politician }) {
         </div>
       </div>
 
+      {/* Risk level badge */}
       <div className="flex items-center justify-center mb-6">
-        <span className={`${riskColor === 'red' ? 'bg-red-100 text-red-700' : riskColor === 'yellow' ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'} px-6 py-2 rounded-full font-bold text-lg flex items-center gap-2`}>
+        <span
+          className={`${
+            riskColor === 'red'
+              ? 'bg-red-100 text-red-700'
+              : riskColor === 'yellow'
+              ? 'bg-yellow-100 text-yellow-700'
+              : 'bg-green-100 text-green-700'
+          } px-6 py-2 rounded-full font-bold text-lg flex items-center gap-2`}
+        >
           <AlertTriangle size={20} />
           {riskLevel}
         </span>
       </div>
 
+      {/* Insights */}
       <div className="space-y-3">
         {aiScore?.insights?.map((insight, idx) => (
           <div key={idx} className="bg-blue-50 border-l-4 border-blue-500 p-3 rounded">
