@@ -7,7 +7,7 @@ export const politicians = [
     "party": "BJP",
     "constituency": "Varanasi, UP",
     "education": "Post Graduate (M.A. in Political Science)",
-    "photo": "https://via.placeholder.com/120/FF9933/FFFFFF?text=NM",
+    "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv9vsoMOUB1NRBBgLVql5jY8WHmmXn0p4Yug&s",
     "totalAssets": 3.02,
     "liabilities": 0.00,
     "casesPending": 0,
@@ -41,12 +41,12 @@ export const politicians = [
     "party": "RJD",
     "constituency": "Bihar (Rajya Sabha)",
     "education": "Doctorate (Ph.D)",
-    "photo": "https://via.placeholder.com/120/008000/FFFFFF?text=SY",
+    "photo": "https://myneta.info/images_candidate/mynetai_ews5Jharkhand2024/b5e7860f02d98f2dd2bee47450f6037241085754.jpg",
     "totalAssets": 29.59,
     "liabilities": 3.97,
-    "casesPending": 0,
-    "movableTotal": 14.50,
-    "immovableTotal": 27.69,
+    "casesPending": 6,
+    "movableTotal": 4.02,
+    "immovableTotal": 25.56,
     "timeline": [
       {"year": 2009, "netWorth": 1.46},
       {"year": 2014, "netWorth": 4.80},
@@ -83,7 +83,7 @@ export const politicians = [
     "party": "INC",
     "constituency": "Pune, Maharashtra",
     "education": "Graduate",
-    "photo": "https://via.placeholder.com/120/0033A0/FFFFFF?text=SK",
+    "photo": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.thenewsminute.com%2Fnews%2Fkalmadi-declines-honorary-ioa-post-after-sports-minister-threaten-action-54940&psig=AOvVaw3nxsiWPfmjfchla9wljRaf&ust=1759671848516000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCNDXqtDWipADFQAAAAAdAAAAABAE",
     "totalAssets": 16.97,
     "liabilities": 1.51,
     "casesPending": 5,
@@ -117,7 +117,7 @@ export const politicians = [
     "party": "YSRCP",
     "constituency": "Pulivendula, AP",
     "education": "Graduate (B.Com)",
-    "photo": "https://via.placeholder.com/120/00AEEF/FFFFFF?text=JMR",
+    "photo": "https://myneta.info/images_candidate/mynetai_ews5AndhraPradesh2024/d722bef05f938ee8b33bbbad19835bd5221c23ba.jpg",
     "totalAssets": 757.65,
     "liabilities": 3.01,
     "casesPending": 39,
@@ -139,8 +139,8 @@ export const politicians = [
         "spouse": {"deposits": 0.38, "shares_bonds": 10.14, "jewellery": 4.26}
       },
       "immovable": {
-        "self": {"agricultural_land": {"value": 0.06, "size": "42.4 acres"}, "non_agri_land": {"value": 8.01, "size": "10.36 acres"}, "commercial_buildings": {"value": 110.17, "size": "N/A"}, "residential_buildings": {"value": 90.00, "size": "N/A"}},
-        "spouse": {"non_agri_land": {"value": 10.37, "size": "1.2 acres"}, "commercial_buildings": {"value": 9.28, "size": "N/A"}}
+        "self": {"agricultural_land": {"value": 1.54, "size": "39.52 acres"}, "non_agri_land": {"value": 8.01, "size": "10.36 acres"}, "commercial_buildings": {"value": 110.17, "size": "N/A"}, "residential_buildings": {"value": 90.00, "size": "N/A"}},
+        "spouse": {"agricultural_land": {"value": 1.63, "size": "30+ acres"}, "commercial_buildings": {"value": 0.0, "size": "N/A"}}
       }
     }
   },
@@ -152,7 +152,7 @@ export const politicians = [
     "party": "JMM",
     "constituency": "Barhait, Jharkhand",
     "education": "Intermediate (12th Pass)",
-    "photo": "https://via.placeholder.com/120/32CD32/FFFFFF?text=HS",
+    "photo": "https://myneta.info/images_candidate/mynetai_ews5Jharkhand2024/8c7332b31a80880e2e67c74c2cdd1561b371c0ed.jpg",
     "totalAssets": 8.51,
     "liabilities": 0.29,
     "casesPending": 2,
@@ -160,7 +160,8 @@ export const politicians = [
     "immovableTotal": 6.03,
     "timeline": [
       {"year": 2014, "netWorth": 5.49},
-      {"year": 2019, "netWorth": 8.51}
+      {"year": 2019, "netWorth": 8.51},
+      {"year": 2024, "netWorth": 25.33}
     ],
     "assetDistribution": [
       {"name": "Immovable Property", "value": 71},

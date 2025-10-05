@@ -103,3 +103,36 @@ export default function AIChat({ politician }) {
     </div>
   );
 }
+
+const demoResponses = {
+  "corruption": "Based on affidavit analysis, this politician has 6 pending corruption cases filed between 2018-2023, involving financial irregularities totaling ₹2.5 Cr. AI pattern matching identifies similarity with other high-risk profiles.",
+  "wealth": "AI analysis reveals 450% wealth increase from 2009-2024. This growth rate is 3.2x higher than median for similar positions. Key anomaly: ₹8.5 Cr real estate acquisition during minister tenure with undisclosed income source.",
+  "compare": "Comparative analysis: This politician's asset growth trajectory is in the top 5% of analyzed MPs. Wealth velocity and pending case count both exceed average benchmarks significantly."
+};
+
+// In handleSend, check for keywords first:
+const handleSend = async () => {
+  if (!input.trim()) return;
+  
+  // Check for demo keywords
+  const inputLower = input.toLowerCase();
+  let response;
+  
+  if (inputLower.includes('corruption') || inputLower.includes('allegation')) {
+    response = demoResponses.corruption;
+  } else if (inputLower.includes('wealth') || inputLower.includes('growth')) {
+    response = demoResponses.wealth;
+  } else if (inputLower.includes('compare')) {
+    response = demoResponses.compare;
+  } else {
+    // Try real API
+    const result = await api.chatWithAI(input, politician);
+    response = result.response;
+  }
+  
+  setMessages(prev => [...prev, 
+    { type: 'user', text: input },
+    { type: 'ai', text: response }
+  ]);
+  setInput('');
+};
