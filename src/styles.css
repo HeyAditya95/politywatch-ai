@@ -5,17 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * NetaScope design system.
+ * Editorial-modern aesthetic: deep ink background, saffron + emerald accents,
+ * generous serif display + clean grotesk body. All colors in oklch.
  */
 
 @theme inline {
@@ -46,6 +38,13 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
+  --color-saffron: var(--saffron);
+  --color-emerald: var(--emerald);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--destructive);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -59,77 +58,105 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 0.875rem;
+  /* Paper-cream background, deep ink type. Editorial newspaper feel. */
+  --background: oklch(0.985 0.012 85);
+  --foreground: oklch(0.18 0.02 260);
+  --paper: oklch(0.985 0.012 85);
+  --ink: oklch(0.18 0.02 260);
+
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.18 0.02 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --popover-foreground: oklch(0.18 0.02 260);
+
+  /* Primary = deep ink */
+  --primary: oklch(0.18 0.02 260);
+  --primary-foreground: oklch(0.985 0.012 85);
+
+  /* Saffron accent (Indian flag inspired, refined) */
+  --saffron: oklch(0.74 0.18 55);
+  --emerald: oklch(0.55 0.14 155);
+
+  --secondary: oklch(0.95 0.015 80);
+  --secondary-foreground: oklch(0.18 0.02 260);
+  --muted: oklch(0.94 0.012 80);
+  --muted-foreground: oklch(0.45 0.02 260);
+  --accent: oklch(0.74 0.18 55);
+  --accent-foreground: oklch(0.18 0.02 260);
+
+  --destructive: oklch(0.58 0.22 27);
+  --destructive-foreground: oklch(0.985 0.012 85);
+  --success: oklch(0.62 0.16 150);
+  --warning: oklch(0.78 0.16 75);
+
+  --border: oklch(0.88 0.012 80);
+  --input: oklch(0.88 0.012 80);
+  --ring: oklch(0.74 0.18 55);
+
+  /* Chart palette: saffron, emerald, ink, gold, plum */
+  --chart-1: oklch(0.74 0.18 55);
+  --chart-2: oklch(0.55 0.14 155);
+  --chart-3: oklch(0.32 0.04 260);
+  --chart-4: oklch(0.78 0.16 75);
+  --chart-5: oklch(0.55 0.18 320);
+
+  --sidebar: oklch(0.97 0.012 80);
+  --sidebar-foreground: oklch(0.18 0.02 260);
+  --sidebar-primary: oklch(0.18 0.02 260);
+  --sidebar-primary-foreground: oklch(0.985 0.012 85);
+  --sidebar-accent: oklch(0.94 0.012 80);
+  --sidebar-accent-foreground: oklch(0.18 0.02 260);
+  --sidebar-border: oklch(0.88 0.012 80);
+  --sidebar-ring: oklch(0.74 0.18 55);
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
+  --background: oklch(0.16 0.02 260);
+  --foreground: oklch(0.96 0.012 85);
+  --paper: oklch(0.16 0.02 260);
+  --ink: oklch(0.96 0.012 85);
+  --card: oklch(0.21 0.025 260);
+  --card-foreground: oklch(0.96 0.012 85);
+  --popover: oklch(0.21 0.025 260);
+  --popover-foreground: oklch(0.96 0.012 85);
+  --primary: oklch(0.96 0.012 85);
+  --primary-foreground: oklch(0.18 0.02 260);
+  --saffron: oklch(0.78 0.18 55);
+  --emerald: oklch(0.65 0.16 155);
+  --secondary: oklch(0.26 0.03 260);
+  --secondary-foreground: oklch(0.96 0.012 85);
+  --muted: oklch(0.26 0.03 260);
+  --muted-foreground: oklch(0.7 0.02 260);
+  --accent: oklch(0.78 0.18 55);
+  --accent-foreground: oklch(0.18 0.02 260);
+  --destructive: oklch(0.7 0.19 22);
+  --destructive-foreground: oklch(0.96 0.012 85);
+  --success: oklch(0.7 0.16 150);
+  --warning: oklch(0.82 0.16 75);
+  --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --ring: oklch(0.78 0.18 55);
+  --chart-1: oklch(0.78 0.18 55);
+  --chart-2: oklch(0.7 0.16 155);
+  --chart-3: oklch(0.85 0.012 85);
+  --chart-4: oklch(0.82 0.16 75);
+  --chart-5: oklch(0.7 0.2 320);
+  --sidebar: oklch(0.21 0.025 260);
+  --sidebar-foreground: oklch(0.96 0.012 85);
+  --sidebar-primary: oklch(0.78 0.18 55);
+  --sidebar-primary-foreground: oklch(0.18 0.02 260);
+  --sidebar-accent: oklch(0.26 0.03 260);
+  --sidebar-accent-foreground: oklch(0.96 0.012 85);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: oklch(0.78 0.18 55);
 }
 
 @layer base {
@@ -137,8 +164,26 @@
     border-color: var(--color-border);
   }
 
+  html {
+    font-family: var(--font-sans);
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-feature-settings: "ss01", "cv11";
   }
+
+  .font-display {
+    font-family: var(--font-display);
+    font-feature-settings: "ss01";
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Utility: subtle paper grain */
+.bg-grain {
+  background-image:
+    radial-gradient(oklch(0 0 0 / 0.025) 1px, transparent 1px);
+  background-size: 4px 4px;
 }
