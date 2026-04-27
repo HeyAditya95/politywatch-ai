@@ -112,13 +112,13 @@ function ComparePage() {
               label="MP A"
               value={mpA.id}
               color={colorA}
-              onChange={(v) => navigate({ search: (p) => ({ ...p, a: v }) })}
+              onChange={(v) => navigate({ search: (p: { a?: string; b?: string }) => ({ ...p, a: v }) })}
             />
             <Picker
               label="MP B"
               value={mpB.id}
               color={colorB}
-              onChange={(v) => navigate({ search: (p) => ({ ...p, b: v }) })}
+              onChange={(v) => navigate({ search: (p: { a?: string; b?: string }) => ({ ...p, b: v }) })}
             />
           </div>
         </div>

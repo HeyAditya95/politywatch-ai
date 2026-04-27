@@ -23,7 +23,7 @@ import {
   promiseStats,
   totalAssets,
 } from "@/data/mps";
-import type { PromiseStatus } from "@/data/mps";
+import type { MP, PromiseStatus } from "@/data/mps";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 
 export const Route = createFileRoute("/mp/$mpId")({
@@ -67,7 +67,8 @@ const promiseColor: Record<PromiseStatus, string> = {
 };
 
 function MPProfile() {
-  const { mp } = Route.useLoaderData();
+  const data = Route.useLoaderData();
+  const mp = data.mp as MP;
   const partyColor = getPartyColor(mp.party);
   const ps = promiseStats(mp);
   const ls = ladStats(mp);
