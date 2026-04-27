@@ -187,3 +187,90 @@
     radial-gradient(oklch(0 0 0 / 0.025) 1px, transparent 1px);
   background-size: 4px 4px;
 }
+
+/* ─────────────────────────────────────────────
+   PolityWatch dossier theme — scoped to .ns-dark
+   Dark, intelligence-brief aesthetic for landing.
+   ───────────────────────────────────────────── */
+.ns-dark {
+  --ink-bg: #0c0c0e;
+  --ink-bg1: #111115;
+  --ink-bg2: #16161b;
+  --ns-saffron: #ff7a1a;
+  --ns-saffron-2: rgba(255, 122, 26, 0.12);
+  --ns-saffron-3: rgba(255, 122, 26, 0.25);
+  --ns-w: #f0f0f2;
+  --ns-w2: #8a8a96;
+  --ns-w3: #3a3a44;
+  --ns-rule: rgba(255, 255, 255, 0.06);
+  --ns-rule2: rgba(255, 255, 255, 0.03);
+  --ns-emerald: #4aaa6a;
+  --ns-amber: #e8b84b;
+
+  background-color: var(--ink-bg);
+  color: var(--ns-w);
+  font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ns-dark .font-disp {
+  font-family: "Bebas Neue", "Impact", sans-serif;
+  letter-spacing: 0.01em;
+  font-weight: 400;
+}
+.ns-dark .font-mono {
+  font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Grain overlay for the dark theme */
+.ns-grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.06'/%3E%3C/svg%3E");
+}
+
+/* Ticker animation */
+@keyframes ns-ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ns-ticker-run { animation: ns-ticker 28s linear infinite; }
+
+@keyframes ns-strip-l {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes ns-strip-r {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+.ns-strip-l { animation: ns-strip-l 32s linear infinite; }
+.ns-strip-r { animation: ns-strip-r 44s linear infinite; }
+.ns-strip-l:hover, .ns-strip-r:hover { animation-play-state: paused; }
+
+@keyframes ns-pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 170, 106, 0.5); }
+  50%      { box-shadow: 0 0 0 6px rgba(74, 170, 106, 0); }
+}
+.ns-pulse-dot { animation: ns-pulse-dot 2s infinite; }
+
+@keyframes ns-fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+.ns-fade-up { animation: ns-fade-up 0.7s ease forwards; opacity: 0; }
+
+@keyframes ns-nudge {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(6px); }
+}
+.ns-nudge { animation: ns-nudge 2s ease infinite; display: inline-block; }
+
+/* Hide scrollbar on horizontal film tracks */
+.ns-no-scrollbar::-webkit-scrollbar { display: none; }
+.ns-no-scrollbar { scrollbar-width: none; }
+
