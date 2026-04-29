@@ -11,9 +11,34 @@ export type Party =
   | "SP"
   | "SS-UBT"
   | "NCP-SP"
-  | "JD(U)";
+  | "JD(U)"
+  | "AIMIM"
+  | "CPI(M)"
+  | "NCP"
+  | "SHS"
+  | "RJD"
+  | "LJP-RV"
+  | "SAD"
+  | "BJD"
+  | "VCK"
+  | "IND";
 
 export type PromiseStatus = "fulfilled" | "in-progress" | "broken";
+
+export interface LandParcel {
+  location: string;
+  owner: "Self" | "Spouse" | "HUF";
+  type: "Agricultural" | "Residential" | "Commercial" | "Orchard";
+  acres: number;
+  value: number; // ₹ Crore declared
+}
+
+export interface LandHoldingYear {
+  year: number;
+  parcels: LandParcel[];
+  total_acres: number;
+  total_value: number; // ₹ Crore
+}
 
 export interface AssetYear {
   year: number;
@@ -69,6 +94,7 @@ export interface MP {
   promises: Promise[];
   ladByYear: LadYear[];
   ladByCategory: LadCategory[];
+  landHoldings: LandHoldingYear[];
   aiSummary: string;
 }
 
@@ -82,23 +108,39 @@ const partyColor: Record<Party, string> = {
   "SS-UBT": "#F47216",
   "NCP-SP": "#0F8A3D",
   "JD(U)": "#16A34A",
+  AIMIM: "#0E7B3B",
+  "CPI(M)": "#D81F26",
+  NCP: "#00A551",
+  SHS: "#F47216",
+  RJD: "#138808",
+  "LJP-RV": "#9333EA",
+  SAD: "#1E40AF",
+  BJD: "#16A34A",
+  VCK: "#1F2937",
+  IND: "#6B7280",
 };
 
 export const getPartyColor = (p: Party) => partyColor[p];
 
+import { LAND_FOR_EXISTING, NEW_MPS_RAW } from "./mps_appendix";
+
 const mk = (
   id: string,
-  data: Omit<MP, "id" | "photo">,
-): MP => ({
-  id,
-  photo: data.name
-    .split(" ")
-    .map((s) => s[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase(),
-  ...data,
-});
+  data: Omit<MP, "id" | "photo" | "landHoldings"> & { landHoldings?: LandHoldingYear[] },
+): MP => {
+  const { landHoldings, ...rest } = data;
+  return {
+    id,
+    photo: rest.name
+      .split(" ")
+      .map((s) => s[0])
+      .slice(0, 2)
+      .join("")
+      .toUpperCase(),
+    landHoldings: landHoldings ?? LAND_FOR_EXISTING[id] ?? [],
+    ...rest,
+  };
+};
 
 export const MPS: MP[] = [
   mk("narendra-modi", {
@@ -368,7 +410,7 @@ export const MPS: MP[] = [
 
   mk("asaduddin-owaisi", {
     name: "Asaduddin Owaisi",
-    party: "INC", // shown for filter convenience; AIMIM in reality
+    party: "AIMIM",
     state: "Telangana",
     constituency: "Hyderabad",
     age: 56,
@@ -735,6 +777,7 @@ export const MPS: MP[] = [
     aiSummary:
       "Modest declared assets relative to peers. Activity dipped in 2023 during incarceration; MPLADS utilisation fell to ~78%. Spend heavily skews to government school upgrades.",
   }),
+  ...NEW_MPS_RAW.map((m) => mk(m.id, m as Omit<MP, "id" | "photo">)),
 ];
 
 export const findMP = (id: string) => MPS.find((m) => m.id === id);

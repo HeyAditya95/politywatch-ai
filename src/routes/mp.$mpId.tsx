@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, Sparkles, Wallet, Target, TrendingUp, GraduationCap, Gavel, Users } from "lucide-react";
+import { ArrowLeft, Sparkles, Wallet, Target, TrendingUp, GraduationCap, Gavel, Users, MapPin } from "lucide-react";
 import {
   Area,
   AreaChart,
@@ -90,6 +90,20 @@ function MPProfile() {
   }));
 
   const ladCatSeries = [...mp.ladByCategory].sort((a, b) => b.amount - a.amount);
+
+  const landSeries = mp.landHoldings.map((l) => ({
+    year: String(l.year),
+    Acres: l.total_acres,
+    Value: l.total_value,
+  }));
+  const firstLand = mp.landHoldings[0];
+  const lastLand = mp.landHoldings[mp.landHoldings.length - 1];
+  const landAcreGrowth = firstLand && firstLand.total_acres > 0
+    ? Math.round(((lastLand.total_acres - firstLand.total_acres) / firstLand.total_acres) * 100)
+    : 0;
+  const landValueGrowth = firstLand && firstLand.total_value > 0
+    ? Math.round(((lastLand.total_value - firstLand.total_value) / firstLand.total_value) * 100)
+    : 0;
 
   const promisePie = [
     { name: "Fulfilled", value: ps.fulfilled, color: "var(--success)" },
@@ -249,6 +263,133 @@ function MPProfile() {
           </div>
         </ChartCard>
 
+        {/* LAND HOLDINGS */}
+        {mp.landHoldings.length > 0 && (
+          <ChartCard
+            title="Land & immovable holdings"
+            subtitle="Self-declared land parcels (self / spouse / HUF) with acreage and value across each declaration."
+            accent={partyColor}
+          >
+            {/* Headline numbers */}
+            <div className="mb-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <MiniStat
+                label="Acres (latest)"
+                value={`${lastLand.total_acres.toFixed(2)}`}
+                sub={`${landAcreGrowth >= 0 ? "+" : ""}${landAcreGrowth}% since ${firstLand.year}`}
+                tone={landAcreGrowth > 200 ? "warn" : "ok"}
+              />
+              <MiniStat
+                label="Declared value"
+                value={`₹${lastLand.total_value.toFixed(2)} Cr`}
+                sub={`${landValueGrowth >= 0 ? "+" : ""}${landValueGrowth}% since ${firstLand.year}`}
+                tone={landValueGrowth > 300 ? "warn" : "ok"}
+              />
+              <MiniStat
+                label="Parcels (latest)"
+                value={String(lastLand.parcels.length)}
+                sub="across self, spouse, HUF"
+              />
+              <MiniStat
+                label="First declaration"
+                value={`${firstLand.total_acres.toFixed(2)} ac`}
+                sub={`Year ${firstLand.year}`}
+              />
+            </div>
+
+            {/* Acreage growth chart */}
+            <div className="grid gap-6 lg:grid-cols-2">
+              <div>
+                <h4 className="mb-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Acreage over time
+                </h4>
+                <ResponsiveContainer width="100%" height={240}>
+                  <AreaChart data={landSeries} margin={{ top: 10, right: 12, left: -10, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="aLand" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="var(--emerald)" stopOpacity={0.5} />
+                        <stop offset="100%" stopColor="var(--emerald)" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                    <XAxis dataKey="year" stroke="var(--muted-foreground)" fontSize={12} />
+                    <YAxis stroke="var(--muted-foreground)" fontSize={12} tickFormatter={(v) => `${v} ac`} />
+                    <Tooltip content={<RechTooltip suffix=" ac" />} />
+                    <Area type="monotone" dataKey="Acres" stroke="var(--emerald)" strokeWidth={2.5} fill="url(#aLand)" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+              <div>
+                <h4 className="mb-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Declared land value (₹ Cr)
+                </h4>
+                <ResponsiveContainer width="100%" height={240}>
+                  <BarChart data={landSeries} margin={{ top: 10, right: 12, left: -10, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                    <XAxis dataKey="year" stroke="var(--muted-foreground)" fontSize={12} />
+                    <YAxis stroke="var(--muted-foreground)" fontSize={12} tickFormatter={(v) => `₹${v}`} />
+                    <Tooltip content={<RechTooltip suffix=" Cr" />} />
+                    <Bar dataKey="Value" fill="var(--saffron)" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Parcel detail table — latest year */}
+            <div className="mt-6 overflow-hidden rounded-xl border border-border">
+              <div className="flex items-center justify-between bg-muted/40 px-4 py-2.5">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Parcel-level breakdown · {lastLand.year}
+                </h4>
+                <span className="font-mono text-[11px] text-muted-foreground">
+                  {lastLand.parcels.length} parcels
+                </span>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                    <tr className="border-b border-border">
+                      <th className="px-4 py-2 text-left font-semibold">Location</th>
+                      <th className="px-4 py-2 text-left font-semibold">Owner</th>
+                      <th className="px-4 py-2 text-left font-semibold">Type</th>
+                      <th className="px-4 py-2 text-right font-semibold">Acres</th>
+                      <th className="px-4 py-2 text-right font-semibold">Value (₹ Cr)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {lastLand.parcels.map((p, i) => (
+                      <tr key={i} className="border-b border-border/60 last:border-0">
+                        <td className="px-4 py-2.5">
+                          <div className="flex items-center gap-2">
+                            <MapPin className="h-3.5 w-3.5 text-saffron" />
+                            <span className="font-medium">{p.location}</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-2.5">
+                          <span className="rounded-full bg-muted px-2 py-0.5 text-[11px] font-semibold">
+                            {p.owner}
+                          </span>
+                        </td>
+                        <td className="px-4 py-2.5 text-muted-foreground">{p.type}</td>
+                        <td className="px-4 py-2.5 text-right font-mono font-semibold">{p.acres.toFixed(2)}</td>
+                        <td className="px-4 py-2.5 text-right font-mono font-semibold">₹{p.value.toFixed(2)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                  <tfoot>
+                    <tr className="bg-muted/40">
+                      <td className="px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-muted-foreground" colSpan={3}>
+                        Total
+                      </td>
+                      <td className="px-4 py-2.5 text-right font-mono font-bold">{lastLand.total_acres.toFixed(2)}</td>
+                      <td className="px-4 py-2.5 text-right font-mono font-bold">₹{lastLand.total_value.toFixed(2)}</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </ChartCard>
+        )}
+
         {/* PROMISES */}
         <ChartCard
           title="Promise tracker"
@@ -366,6 +507,30 @@ function MPProfile() {
 }
 
 /* —————————————————— small components —————————————————— */
+
+function MiniStat({
+  label,
+  value,
+  sub,
+  tone = "neutral",
+}: {
+  label: string;
+  value: string;
+  sub: string;
+  tone?: "ok" | "warn" | "neutral";
+}) {
+  const toneCls =
+    tone === "warn" ? "text-destructive" : tone === "ok" ? "text-emerald" : "text-muted-foreground";
+  return (
+    <div className="rounded-xl border border-border bg-muted/30 p-3">
+      <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+        {label}
+      </div>
+      <div className="mt-1 font-display text-xl font-bold leading-none">{value}</div>
+      <div className={`mt-1.5 text-[11px] ${toneCls}`}>{sub}</div>
+    </div>
+  );
+}
 
 function QuickStat({
   icon,
