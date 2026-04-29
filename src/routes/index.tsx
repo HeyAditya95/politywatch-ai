@@ -81,6 +81,7 @@ function Nav() {
         </a>
         <Link
           to="/compare"
+          search={{}}
           className="font-mono px-4 py-1.5 text-[0.62rem] font-medium uppercase tracking-[0.08em] transition-opacity hover:opacity-85"
           style={{ background: "var(--ns-saffron)", color: "#0c0c0e" }}
         >
@@ -175,6 +176,7 @@ function Hero() {
             </a>
             <Link
               to="/compare"
+              search={{}}
               className="font-mono px-6 py-3 text-[0.7rem] uppercase tracking-[0.1em] transition-all hover:text-white"
               style={{
                 color: "var(--ns-w2)",
@@ -293,6 +295,7 @@ function BigNumber() {
         </p>
         <Link
           to="/compare"
+          search={{}}
           className="font-mono mt-8 inline-flex w-fit items-center gap-2 px-7 py-3 text-[0.7rem] font-medium uppercase tracking-[0.1em] transition-opacity hover:opacity-85"
           style={{ background: "#0c0c0e", color: "var(--ns-saffron)" }}
         >
@@ -575,6 +578,7 @@ function CTA() {
           </a>
           <Link
             to="/compare"
+            search={{}}
             className="font-mono px-9 py-3.5 text-[0.7rem] uppercase tracking-[0.1em] transition-colors hover:text-white"
             style={{ color: "var(--ns-w3)", border: "1px solid var(--ns-w3)" }}
           >
