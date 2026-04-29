@@ -20,7 +20,7 @@ const totalWorks = MPS.reduce((s, m) => s + ladStats(m).works, 0);
 
 function HomePage() {
   return (
-    <div className="ns-dark ns-grain min-h-screen">
+    <div className="ns-grain min-h-screen">
       <Nav />
       <Hero />
       <StickyStatBar />
@@ -44,12 +44,12 @@ function Nav() {
     <nav
       className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between px-5 backdrop-blur-xl sm:px-10"
       style={{
-        background: "rgba(12,12,14,0.9)",
+        background: "color-mix(in oklab, var(--ink-bg) 88%, transparent)",
         borderBottom: "1px solid var(--ns-rule)",
       }}
     >
-      <Link to="/" className="font-disp text-[1.35rem] tracking-wider">
-        Neta<span style={{ color: "var(--ns-saffron)" }}>Scope</span>
+      <Link to="/" className="font-disp text-[1.35rem] tracking-wider" style={{ color: "var(--ns-w)" }}>
+        Polity<span style={{ color: "var(--ns-saffron)" }}>Watch</span>
       </Link>
       <div className="absolute left-1/2 hidden -translate-x-1/2 md:flex">
         {[
@@ -60,7 +60,8 @@ function Nav() {
           <Link
             key={item.label}
             to={item.to}
-            className="font-mono px-4 py-2 text-[0.62rem] uppercase tracking-[0.08em] transition-colors hover:text-white"
+            search={item.to === "/compare" ? {} : undefined}
+            className="font-mono px-4 py-2 text-[0.62rem] uppercase tracking-[0.08em] transition-colors hover:text-[var(--ns-saffron)]"
             style={{
               color: "var(--ns-w2)",
               borderRight: "1px solid var(--ns-rule)",
@@ -74,16 +75,17 @@ function Nav() {
       <div className="flex items-center gap-3">
         <a
           href="#cases"
-          className="font-mono hidden text-[0.62rem] uppercase tracking-[0.08em] transition-colors hover:text-white sm:inline"
+          className="font-mono hidden text-[0.62rem] uppercase tracking-[0.08em] transition-colors hover:text-[var(--ns-saffron)] sm:inline"
           style={{ color: "var(--ns-w2)" }}
         >
           <Github className="mr-1 inline h-3 w-3" /> Demo
         </a>
+        <ThemeToggle />
         <Link
           to="/compare"
           search={{}}
           className="font-mono px-4 py-1.5 text-[0.62rem] font-medium uppercase tracking-[0.08em] transition-opacity hover:opacity-85"
-          style={{ background: "var(--ns-saffron)", color: "#0c0c0e" }}
+          style={{ background: "var(--ns-saffron)", color: "var(--ink-bg)" }}
         >
           Compare →
         </Link>
