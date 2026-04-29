@@ -94,6 +94,7 @@ export interface MP {
   promises: Promise[];
   ladByYear: LadYear[];
   ladByCategory: LadCategory[];
+  landHoldings: LandHoldingYear[];
   aiSummary: string;
 }
 
@@ -107,23 +108,39 @@ const partyColor: Record<Party, string> = {
   "SS-UBT": "#F47216",
   "NCP-SP": "#0F8A3D",
   "JD(U)": "#16A34A",
+  AIMIM: "#0E7B3B",
+  "CPI(M)": "#D81F26",
+  NCP: "#00A551",
+  SHS: "#F47216",
+  RJD: "#138808",
+  "LJP-RV": "#9333EA",
+  SAD: "#1E40AF",
+  BJD: "#16A34A",
+  VCK: "#1F2937",
+  IND: "#6B7280",
 };
 
 export const getPartyColor = (p: Party) => partyColor[p];
 
+import { LAND_FOR_EXISTING, NEW_MPS_RAW } from "./mps_appendix";
+
 const mk = (
   id: string,
-  data: Omit<MP, "id" | "photo">,
-): MP => ({
-  id,
-  photo: data.name
-    .split(" ")
-    .map((s) => s[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase(),
-  ...data,
-});
+  data: Omit<MP, "id" | "photo" | "landHoldings"> & { landHoldings?: LandHoldingYear[] },
+): MP => {
+  const { landHoldings, ...rest } = data;
+  return {
+    id,
+    photo: rest.name
+      .split(" ")
+      .map((s) => s[0])
+      .slice(0, 2)
+      .join("")
+      .toUpperCase(),
+    landHoldings: landHoldings ?? LAND_FOR_EXISTING[id] ?? [],
+    ...rest,
+  };
+};
 
 export const MPS: MP[] = [
   mk("narendra-modi", {
