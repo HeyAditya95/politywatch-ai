@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, Github, Search } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-provider";
 import { ALL_PARTIES, ALL_STATES, MPS, getPartyColor, ladStats, promiseStats, totalAssets } from "@/data/mps";
 
 export const Route = createFileRoute("/")({
