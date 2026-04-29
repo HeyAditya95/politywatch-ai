@@ -302,3 +302,63 @@ body {
 .ns-no-scrollbar::-webkit-scrollbar { display: none; }
 .ns-no-scrollbar { scrollbar-width: none; }
 
+
+/* ─────────────────────────────────────────────
+   Bridge shadcn semantic tokens to the dossier palette
+   so Card/Input/Button/etc. blend with both themes.
+   ───────────────────────────────────────────── */
+:root, .dark {
+  --background: #0c0c0e;
+  --foreground: #f0f0f2;
+  --card: #111115;
+  --card-foreground: #f0f0f2;
+  --popover: #16161b;
+  --popover-foreground: #f0f0f2;
+  --primary: #ff7a1a;
+  --primary-foreground: #0c0c0e;
+  --secondary: #1a1a20;
+  --secondary-foreground: #f0f0f2;
+  --muted: #16161b;
+  --muted-foreground: #8a8a96;
+  --accent: #1a1a20;
+  --accent-foreground: #ff7a1a;
+  --border: rgba(255,255,255,0.06);
+  --input: rgba(255,255,255,0.10);
+  --ring: #ff7a1a;
+  --saffron: #ff7a1a;
+  --emerald: #4aaa6a;
+  --paper: #0c0c0e;
+  --ink: #f0f0f2;
+  --success: #4aaa6a;
+  --warning: #e8b84b;
+  --destructive: #e85a3c;
+  --destructive-foreground: #0c0c0e;
+}
+
+.light {
+  --background: #f4f1ea;
+  --foreground: #15151a;
+  --card: #ebe7dd;
+  --card-foreground: #15151a;
+  --popover: #f4f1ea;
+  --popover-foreground: #15151a;
+  --primary: #d35f00;
+  --primary-foreground: #f4f1ea;
+  --secondary: #e2ddd0;
+  --secondary-foreground: #15151a;
+  --muted: #e2ddd0;
+  --muted-foreground: #5a5a64;
+  --accent: #e2ddd0;
+  --accent-foreground: #d35f00;
+  --border: rgba(0,0,0,0.10);
+  --input: rgba(0,0,0,0.15);
+  --ring: #d35f00;
+  --saffron: #d35f00;
+  --emerald: #2f7a48;
+  --paper: #f4f1ea;
+  --ink: #15151a;
+  --success: #2f7a48;
+  --warning: #a87a14;
+  --destructive: #b8331a;
+  --destructive-foreground: #f4f1ea;
+}
