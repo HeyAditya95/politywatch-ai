@@ -410,7 +410,7 @@ export const MPS: MP[] = [
 
   mk("asaduddin-owaisi", {
     name: "Asaduddin Owaisi",
-    party: "INC", // shown for filter convenience; AIMIM in reality
+    party: "AIMIM",
     state: "Telangana",
     constituency: "Hyderabad",
     age: 56,
@@ -777,6 +777,7 @@ export const MPS: MP[] = [
     aiSummary:
       "Modest declared assets relative to peers. Activity dipped in 2023 during incarceration; MPLADS utilisation fell to ~78%. Spend heavily skews to government school upgrades.",
   }),
+  ...NEW_MPS_RAW.map((m) => mk(m.id, m as Omit<MP, "id" | "photo">)),
 ];
 
 export const findMP = (id: string) => MPS.find((m) => m.id === id);
