@@ -508,6 +508,30 @@ function MPProfile() {
 
 /* —————————————————— small components —————————————————— */
 
+function MiniStat({
+  label,
+  value,
+  sub,
+  tone = "neutral",
+}: {
+  label: string;
+  value: string;
+  sub: string;
+  tone?: "ok" | "warn" | "neutral";
+}) {
+  const toneCls =
+    tone === "warn" ? "text-destructive" : tone === "ok" ? "text-emerald" : "text-muted-foreground";
+  return (
+    <div className="rounded-xl border border-border bg-muted/30 p-3">
+      <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+        {label}
+      </div>
+      <div className="mt-1 font-display text-xl font-bold leading-none">{value}</div>
+      <div className={`mt-1.5 text-[11px] ${toneCls}`}>{sub}</div>
+    </div>
+  );
+}
+
 function QuickStat({
   icon,
   label,
