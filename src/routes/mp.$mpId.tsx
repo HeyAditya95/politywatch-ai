@@ -91,6 +91,20 @@ function MPProfile() {
 
   const ladCatSeries = [...mp.ladByCategory].sort((a, b) => b.amount - a.amount);
 
+  const landSeries = mp.landHoldings.map((l) => ({
+    year: String(l.year),
+    Acres: l.total_acres,
+    Value: l.total_value,
+  }));
+  const firstLand = mp.landHoldings[0];
+  const lastLand = mp.landHoldings[mp.landHoldings.length - 1];
+  const landAcreGrowth = firstLand && firstLand.total_acres > 0
+    ? Math.round(((lastLand.total_acres - firstLand.total_acres) / firstLand.total_acres) * 100)
+    : 0;
+  const landValueGrowth = firstLand && firstLand.total_value > 0
+    ? Math.round(((lastLand.total_value - firstLand.total_value) / firstLand.total_value) * 100)
+    : 0;
+
   const promisePie = [
     { name: "Fulfilled", value: ps.fulfilled, color: "var(--success)" },
     { name: "In progress", value: ps.inProgress, color: "var(--warning)" },
