@@ -11,9 +11,34 @@ export type Party =
   | "SP"
   | "SS-UBT"
   | "NCP-SP"
-  | "JD(U)";
+  | "JD(U)"
+  | "AIMIM"
+  | "CPI(M)"
+  | "NCP"
+  | "SHS"
+  | "RJD"
+  | "LJP-RV"
+  | "SAD"
+  | "BJD"
+  | "VCK"
+  | "IND";
 
 export type PromiseStatus = "fulfilled" | "in-progress" | "broken";
+
+export interface LandParcel {
+  location: string;
+  owner: "Self" | "Spouse" | "HUF";
+  type: "Agricultural" | "Residential" | "Commercial" | "Orchard";
+  acres: number;
+  value: number; // ₹ Crore declared
+}
+
+export interface LandHoldingYear {
+  year: number;
+  parcels: LandParcel[];
+  total_acres: number;
+  total_value: number; // ₹ Crore
+}
 
 export interface AssetYear {
   year: number;
