@@ -27,8 +27,8 @@ import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { ArrowLeftRight } from "lucide-react";
 
 const searchSchema = z.object({
-  a: fallback(z.string().optional(), undefined),
-  b: fallback(z.string().optional(), undefined),
+  a: fallback(z.string(), "").optional(),
+  b: fallback(z.string(), "").optional(),
 });
 
 export const Route = createFileRoute("/compare")({
