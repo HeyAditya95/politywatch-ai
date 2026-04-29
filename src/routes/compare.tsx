@@ -35,13 +35,13 @@ export const Route = createFileRoute("/compare")({
   validateSearch: zodValidator(searchSchema),
   head: () => ({
     meta: [
-      { title: "Compare MPs side-by-side — NetaScope" },
+      { title: "Compare MPs side-by-side — PolityWatch" },
       {
         name: "description",
         content:
           "Pick any two Indian MPs and compare their assets, promises, and MPLADS spend in one chart-first view.",
       },
-      { property: "og:title", content: "Compare MPs side-by-side — NetaScope" },
+      { property: "og:title", content: "Compare MPs side-by-side — PolityWatch" },
       {
         property: "og:description",
         content: "Two MPs, one dashboard. Asset growth, promise tracker, and MPLADS spend.",

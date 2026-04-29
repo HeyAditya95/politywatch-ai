@@ -35,7 +35,7 @@ export const Route = createFileRoute("/mp/$mpId")({
   head: ({ loaderData }) => {
     const mp = loaderData?.mp;
     if (!mp) return {};
-    const title = `${mp.name} (${mp.party}) — NetaScope`;
+    const title = `${mp.name} (${mp.party}) — PolityWatch`;
     const desc = `Asset growth, promise tracker, and MPLADS spend for ${mp.name}, MP from ${mp.constituency}, ${mp.state}.`;
     return {
       meta: [

@@ -159,7 +159,7 @@ function Hero() {
 
         <div className="ns-fade-up flex flex-wrap items-end justify-between gap-8" style={{ animationDelay: "0.5s" }}>
           <p className="max-w-[480px] text-[0.95rem] font-light leading-[1.85]" style={{ color: "var(--ns-w2)" }}>
-            <strong className="font-medium text-white">NetaScope</strong> parses every Indian MP's
+            <strong className="font-medium" style={{ color: "var(--ns-w)" }}>PolityWatch</strong> parses every Indian MP's
             financial affidavit, manifesto promises and MPLADS spend — surfacing wealth anomalies,
             tracking constituency works, and answering your questions in plain language. Always on.
           </p>
@@ -604,7 +604,7 @@ function Footer() {
     >
       <div>
         <Link to="/" className="font-disp text-[1.1rem] tracking-wider text-white">
-          Neta<span style={{ color: "var(--ns-saffron)" }}>Scope</span>
+          Polity<span style={{ color: "var(--ns-saffron)" }}>Watch</span>
         </Link>
         <div className="font-mono mt-1 text-[0.56rem] uppercase tracking-wider" style={{ color: "var(--ns-w3)" }}>
           Demo data · For illustrative purposes only · 2026
