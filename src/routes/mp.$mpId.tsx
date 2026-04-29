@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, Sparkles, Wallet, Target, TrendingUp, GraduationCap, Gavel, Users } from "lucide-react";
+import { ArrowLeft, Sparkles, Wallet, Target, TrendingUp, GraduationCap, Gavel, Users, MapPin } from "lucide-react";
 import {
   Area,
   AreaChart,
