@@ -35,7 +35,7 @@ export const Route = createFileRoute("/mp/$mpId")({
   head: ({ loaderData }) => {
     const mp = loaderData?.mp;
     if (!mp) return {};
-    const title = `${mp.name} (${mp.party}) — NetaScope`;
+    const title = `${mp.name} (${mp.party}) — PolityWatch`;
     const desc = `Asset growth, promise tracker, and MPLADS spend for ${mp.name}, MP from ${mp.constituency}, ${mp.state}.`;
     return {
       meta: [
@@ -98,7 +98,7 @@ function MPProfile() {
   ].filter((s) => s.value > 0);
 
   return (
-    <div className="min-h-screen bg-background bg-grain">
+    <div className="min-h-screen ns-grain">
       <SiteHeader />
 
       {/* HERO */}
@@ -142,7 +142,7 @@ function MPProfile() {
             </div>
             <Link
               to="/compare"
-              search={{ a: mp.id }}
+              search={{ a: mp.id, b: "" }}
               className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground hover:opacity-90"
             >
               Compare with another MP →

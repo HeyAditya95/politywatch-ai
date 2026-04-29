@@ -1,64 +1,102 @@
 import { Link } from "@tanstack/react-router";
+import { Github } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-provider";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-        <Link to="/" className="group flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-transform group-hover:rotate-3">
-            <span className="font-display text-lg font-extrabold">N</span>
-          </div>
-          <div className="leading-none">
-            <div className="font-display text-xl font-extrabold tracking-tight">
-              NetaScope
-            </div>
-            <div className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              India · Parliament · Decoded
-            </div>
-          </div>
-        </Link>
-        <nav className="flex items-center gap-1 text-sm font-medium">
+    <nav
+      className="sticky top-0 z-40 flex h-14 items-center justify-between px-5 backdrop-blur-xl sm:px-10"
+      style={{
+        background: "color-mix(in oklab, var(--ink-bg) 88%, transparent)",
+        borderBottom: "1px solid var(--ns-rule)",
+      }}
+    >
+      <Link to="/" className="font-disp text-[1.35rem] tracking-wider" style={{ color: "var(--ns-w)" }}>
+        Polity<span style={{ color: "var(--ns-saffron)" }}>Watch</span>
+      </Link>
+      <div className="absolute left-1/2 hidden -translate-x-1/2 md:flex">
+        {[
+          { label: "Search", to: "/" as const },
+          { label: "Compare", to: "/compare" as const },
+          { label: "About", to: "/about" as const },
+        ].map((item, i) => (
           <Link
-            to="/"
-            activeOptions={{ exact: true }}
-            activeProps={{ className: "bg-muted text-foreground" }}
-            className="rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            key={item.label}
+            to={item.to}
+            search={item.to === "/compare" ? {} : undefined}
+            activeOptions={item.to === "/" ? { exact: true } : undefined}
+            activeProps={{ style: { color: "var(--ns-saffron)" } }}
+            className="font-mono px-4 py-2 text-[0.62rem] uppercase tracking-[0.08em] transition-colors hover:text-[var(--ns-saffron)]"
+            style={{
+              color: "var(--ns-w2)",
+              borderRight: "1px solid var(--ns-rule)",
+              borderLeft: i === 0 ? "1px solid var(--ns-rule)" : undefined,
+            }}
           >
-            Search
+            {item.label}
           </Link>
-          <Link
-            to="/compare"
-            activeProps={{ className: "bg-muted text-foreground" }}
-            className="rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          >
-            Compare
-          </Link>
-          <Link
-            to="/about"
-            activeProps={{ className: "bg-muted text-foreground" }}
-            className="rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          >
-            About
-          </Link>
-        </nav>
+        ))}
       </div>
-    </header>
+      <div className="flex items-center gap-3">
+        <a
+          href="https://github.com"
+          target="_blank"
+          rel="noreferrer"
+          className="font-mono hidden text-[0.62rem] uppercase tracking-[0.08em] transition-colors hover:text-[var(--ns-saffron)] sm:inline"
+          style={{ color: "var(--ns-w2)" }}
+        >
+          <Github className="mr-1 inline h-3 w-3" /> Demo
+        </a>
+        <ThemeToggle />
+        <Link
+          to="/compare"
+          search={{}}
+          className="font-mono px-4 py-1.5 text-[0.62rem] font-medium uppercase tracking-[0.08em] transition-opacity hover:opacity-85"
+          style={{ background: "var(--ns-saffron)", color: "var(--ink-bg)" }}
+        >
+          Compare →
+        </Link>
+      </div>
+    </nav>
   );
 }
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-10 text-sm text-muted-foreground sm:px-6">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {new Date().getFullYear()} NetaScope · An open lens on Indian Parliament.
-          </p>
-          <p className="font-mono text-xs">
-            Demo data · For illustrative purposes only.
-          </p>
+    <footer
+      className="flex flex-wrap items-center justify-between gap-4 px-5 py-6 sm:px-10"
+      style={{ borderTop: "1px solid var(--ns-rule)" }}
+    >
+      <div>
+        <Link to="/" className="font-disp text-[1.1rem] tracking-wider" style={{ color: "var(--ns-w)" }}>
+          Polity<span style={{ color: "var(--ns-saffron)" }}>Watch</span>
+        </Link>
+        <div className="font-mono mt-1 text-[0.56rem] uppercase tracking-wider" style={{ color: "var(--ns-w3)" }}>
+          Demo data · For illustrative purposes only · {new Date().getFullYear()}
         </div>
       </div>
+      <ul className="flex list-none">
+        {[
+          { label: "Search", to: "/" as const },
+          { label: "Compare", to: "/compare" as const },
+          { label: "About", to: "/about" as const },
+        ].map((l, i) => (
+          <li key={l.label}>
+            <Link
+              to={l.to}
+              search={l.to === "/compare" ? {} : undefined}
+              className="font-mono px-4 py-1.5 text-[0.58rem] uppercase tracking-[0.06em] transition-colors hover:text-[var(--ns-saffron)]"
+              style={{
+                color: "var(--ns-w3)",
+                borderRight: "1px solid var(--ns-rule)",
+                borderLeft: i === 0 ? "1px solid var(--ns-rule)" : undefined,
+              }}
+            >
+              {l.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </footer>
   );
 }

@@ -27,21 +27,21 @@ import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { ArrowLeftRight } from "lucide-react";
 
 const searchSchema = z.object({
-  a: fallback(z.string().optional(), undefined),
-  b: fallback(z.string().optional(), undefined),
+  a: fallback(z.string(), "").optional(),
+  b: fallback(z.string(), "").optional(),
 });
 
 export const Route = createFileRoute("/compare")({
   validateSearch: zodValidator(searchSchema),
   head: () => ({
     meta: [
-      { title: "Compare MPs side-by-side — NetaScope" },
+      { title: "Compare MPs side-by-side — PolityWatch" },
       {
         name: "description",
         content:
           "Pick any two Indian MPs and compare their assets, promises, and MPLADS spend in one chart-first view.",
       },
-      { property: "og:title", content: "Compare MPs side-by-side — NetaScope" },
+      { property: "og:title", content: "Compare MPs side-by-side — PolityWatch" },
       {
         property: "og:description",
         content: "Two MPs, one dashboard. Asset growth, promise tracker, and MPLADS spend.",
@@ -91,7 +91,7 @@ function ComparePage() {
   }));
 
   return (
-    <div className="min-h-screen bg-background bg-grain">
+    <div className="min-h-screen ns-grain">
       <SiteHeader />
 
       <section className="border-b border-border">
@@ -112,13 +112,13 @@ function ComparePage() {
               label="MP A"
               value={mpA.id}
               color={colorA}
-              onChange={(v) => navigate({ search: (p: { a?: string; b?: string }) => ({ ...p, a: v }) })}
+              onChange={(v) => navigate({ search: { a: v, b: bId } })}
             />
             <Picker
               label="MP B"
               value={mpB.id}
               color={colorB}
-              onChange={(v) => navigate({ search: (p: { a?: string; b?: string }) => ({ ...p, b: v }) })}
+              onChange={(v) => navigate({ search: { a: aId, b: v } })}
             />
           </div>
         </div>

@@ -189,10 +189,14 @@
 }
 
 /* ─────────────────────────────────────────────
-   PolityWatch dossier theme — scoped to .ns-dark
-   Dark, intelligence-brief aesthetic for landing.
+   PolityWatch dossier theme — global tokens
+   Dark = intelligence-brief aesthetic (default).
+   Light = paper-dossier variant of the same look.
    ───────────────────────────────────────────── */
-.ns-dark {
+
+/* DARK (default + .dark) */
+:root,
+.dark {
   --ink-bg: #0c0c0e;
   --ink-bg1: #111115;
   --ink-bg2: #16161b;
@@ -206,23 +210,46 @@
   --ns-rule2: rgba(255, 255, 255, 0.03);
   --ns-emerald: #4aaa6a;
   --ns-amber: #e8b84b;
+}
 
+/* LIGHT override — paper dossier */
+.light {
+  --ink-bg: #f4f1ea;
+  --ink-bg1: #ebe7dd;
+  --ink-bg2: #e2ddd0;
+  --ns-saffron: #d35f00;
+  --ns-saffron-2: rgba(211, 95, 0, 0.10);
+  --ns-saffron-3: rgba(211, 95, 0, 0.22);
+  --ns-w: #15151a;
+  --ns-w2: #5a5a64;
+  --ns-w3: #9a958a;
+  --ns-rule: rgba(0, 0, 0, 0.10);
+  --ns-rule2: rgba(0, 0, 0, 0.05);
+  --ns-emerald: #2f7a48;
+  --ns-amber: #a87a14;
+}
+
+/* Apply the dossier surface to the whole app */
+html, body {
   background-color: var(--ink-bg);
   color: var(--ns-w);
+}
+
+body {
   font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-.ns-dark .font-disp {
+.font-disp {
   font-family: "Bebas Neue", "Impact", sans-serif;
   letter-spacing: 0.01em;
   font-weight: 400;
 }
-.ns-dark .font-mono {
+.font-mono {
   font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
-/* Grain overlay for the dark theme */
+/* Grain overlay — works for both themes */
 .ns-grain::before {
   content: "";
   position: fixed;
@@ -231,6 +258,7 @@
   pointer-events: none;
   opacity: 0.4;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.06'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
 }
 
 /* Ticker animation */
@@ -274,3 +302,63 @@
 .ns-no-scrollbar::-webkit-scrollbar { display: none; }
 .ns-no-scrollbar { scrollbar-width: none; }
 
+
+/* ─────────────────────────────────────────────
+   Bridge shadcn semantic tokens to the dossier palette
+   so Card/Input/Button/etc. blend with both themes.
+   ───────────────────────────────────────────── */
+:root, .dark {
+  --background: #0c0c0e;
+  --foreground: #f0f0f2;
+  --card: #111115;
+  --card-foreground: #f0f0f2;
+  --popover: #16161b;
+  --popover-foreground: #f0f0f2;
+  --primary: #ff7a1a;
+  --primary-foreground: #0c0c0e;
+  --secondary: #1a1a20;
+  --secondary-foreground: #f0f0f2;
+  --muted: #16161b;
+  --muted-foreground: #8a8a96;
+  --accent: #1a1a20;
+  --accent-foreground: #ff7a1a;
+  --border: rgba(255,255,255,0.06);
+  --input: rgba(255,255,255,0.10);
+  --ring: #ff7a1a;
+  --saffron: #ff7a1a;
+  --emerald: #4aaa6a;
+  --paper: #0c0c0e;
+  --ink: #f0f0f2;
+  --success: #4aaa6a;
+  --warning: #e8b84b;
+  --destructive: #e85a3c;
+  --destructive-foreground: #0c0c0e;
+}
+
+.light {
+  --background: #f4f1ea;
+  --foreground: #15151a;
+  --card: #ebe7dd;
+  --card-foreground: #15151a;
+  --popover: #f4f1ea;
+  --popover-foreground: #15151a;
+  --primary: #d35f00;
+  --primary-foreground: #f4f1ea;
+  --secondary: #e2ddd0;
+  --secondary-foreground: #15151a;
+  --muted: #e2ddd0;
+  --muted-foreground: #5a5a64;
+  --accent: #e2ddd0;
+  --accent-foreground: #d35f00;
+  --border: rgba(0,0,0,0.10);
+  --input: rgba(0,0,0,0.15);
+  --ring: #d35f00;
+  --saffron: #d35f00;
+  --emerald: #2f7a48;
+  --paper: #f4f1ea;
+  --ink: #15151a;
+  --success: #2f7a48;
+  --warning: #a87a14;
+  --destructive: #b8331a;
+  --destructive-foreground: #f4f1ea;
+}

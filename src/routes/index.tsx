@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, Github, Search } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-provider";
 import { ALL_PARTIES, ALL_STATES, MPS, getPartyColor, ladStats, promiseStats, totalAssets } from "@/data/mps";
 
 export const Route = createFileRoute("/")({
@@ -20,7 +21,7 @@ const totalWorks = MPS.reduce((s, m) => s + ladStats(m).works, 0);
 
 function HomePage() {
   return (
-    <div className="ns-dark ns-grain min-h-screen">
+    <div className="ns-grain min-h-screen">
       <Nav />
       <Hero />
       <StickyStatBar />
@@ -44,12 +45,12 @@ function Nav() {
     <nav
       className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between px-5 backdrop-blur-xl sm:px-10"
       style={{
-        background: "rgba(12,12,14,0.9)",
+        background: "color-mix(in oklab, var(--ink-bg) 88%, transparent)",
         borderBottom: "1px solid var(--ns-rule)",
       }}
     >
-      <Link to="/" className="font-disp text-[1.35rem] tracking-wider">
-        Neta<span style={{ color: "var(--ns-saffron)" }}>Scope</span>
+      <Link to="/" className="font-disp text-[1.35rem] tracking-wider" style={{ color: "var(--ns-w)" }}>
+        Polity<span style={{ color: "var(--ns-saffron)" }}>Watch</span>
       </Link>
       <div className="absolute left-1/2 hidden -translate-x-1/2 md:flex">
         {[
@@ -60,7 +61,8 @@ function Nav() {
           <Link
             key={item.label}
             to={item.to}
-            className="font-mono px-4 py-2 text-[0.62rem] uppercase tracking-[0.08em] transition-colors hover:text-white"
+            search={item.to === "/compare" ? {} : undefined}
+            className="font-mono px-4 py-2 text-[0.62rem] uppercase tracking-[0.08em] transition-colors hover:text-[var(--ns-saffron)]"
             style={{
               color: "var(--ns-w2)",
               borderRight: "1px solid var(--ns-rule)",
@@ -74,15 +76,17 @@ function Nav() {
       <div className="flex items-center gap-3">
         <a
           href="#cases"
-          className="font-mono hidden text-[0.62rem] uppercase tracking-[0.08em] transition-colors hover:text-white sm:inline"
+          className="font-mono hidden text-[0.62rem] uppercase tracking-[0.08em] transition-colors hover:text-[var(--ns-saffron)] sm:inline"
           style={{ color: "var(--ns-w2)" }}
         >
           <Github className="mr-1 inline h-3 w-3" /> Demo
         </a>
+        <ThemeToggle />
         <Link
           to="/compare"
+          search={{}}
           className="font-mono px-4 py-1.5 text-[0.62rem] font-medium uppercase tracking-[0.08em] transition-opacity hover:opacity-85"
-          style={{ background: "var(--ns-saffron)", color: "#0c0c0e" }}
+          style={{ background: "var(--ns-saffron)", color: "var(--ink-bg)" }}
         >
           Compare →
         </Link>
@@ -155,7 +159,7 @@ function Hero() {
 
         <div className="ns-fade-up flex flex-wrap items-end justify-between gap-8" style={{ animationDelay: "0.5s" }}>
           <p className="max-w-[480px] text-[0.95rem] font-light leading-[1.85]" style={{ color: "var(--ns-w2)" }}>
-            <strong className="font-medium text-white">NetaScope</strong> parses every Indian MP's
+            <strong className="font-medium" style={{ color: "var(--ns-w)" }}>PolityWatch</strong> parses every Indian MP's
             financial affidavit, manifesto promises and MPLADS spend — surfacing wealth anomalies,
             tracking constituency works, and answering your questions in plain language. Always on.
           </p>
@@ -175,6 +179,7 @@ function Hero() {
             </a>
             <Link
               to="/compare"
+              search={{}}
               className="font-mono px-6 py-3 text-[0.7rem] uppercase tracking-[0.1em] transition-all hover:text-white"
               style={{
                 color: "var(--ns-w2)",
@@ -293,6 +298,7 @@ function BigNumber() {
         </p>
         <Link
           to="/compare"
+          search={{}}
           className="font-mono mt-8 inline-flex w-fit items-center gap-2 px-7 py-3 text-[0.7rem] font-medium uppercase tracking-[0.1em] transition-opacity hover:opacity-85"
           style={{ background: "#0c0c0e", color: "var(--ns-saffron)" }}
         >
@@ -575,6 +581,7 @@ function CTA() {
           </a>
           <Link
             to="/compare"
+            search={{}}
             className="font-mono px-9 py-3.5 text-[0.7rem] uppercase tracking-[0.1em] transition-colors hover:text-white"
             style={{ color: "var(--ns-w3)", border: "1px solid var(--ns-w3)" }}
           >
@@ -597,7 +604,7 @@ function Footer() {
     >
       <div>
         <Link to="/" className="font-disp text-[1.1rem] tracking-wider text-white">
-          Neta<span style={{ color: "var(--ns-saffron)" }}>Scope</span>
+          Polity<span style={{ color: "var(--ns-saffron)" }}>Watch</span>
         </Link>
         <div className="font-mono mt-1 text-[0.56rem] uppercase tracking-wider" style={{ color: "var(--ns-w3)" }}>
           Demo data · For illustrative purposes only · 2026

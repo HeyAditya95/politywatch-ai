@@ -4,17 +4,17 @@ import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — NetaScope" },
+      { title: "About — PolityWatch" },
       {
         name: "description",
         content:
-          "NetaScope is a chart-first lens on Indian Parliament: assets, promises, and MPLADS spend, with AI summaries.",
+          "PolityWatch is a chart-first lens on Indian Parliament: assets, promises, and MPLADS spend, with AI summaries.",
       },
-      { property: "og:title", content: "About — NetaScope" },
+      { property: "og:title", content: "About — PolityWatch" },
       {
         property: "og:description",
         content:
-          "How NetaScope works, where the data comes from, and our editorial approach.",
+          "How PolityWatch works, where the data comes from, and our editorial approach.",
       },
     ],
   }),
@@ -23,13 +23,13 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   return (
-    <div className="min-h-screen bg-background bg-grain">
+    <div className="min-h-screen ns-grain">
       <SiteHeader />
       <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
-        <h1 className="font-display text-5xl font-extrabold tracking-tight">About NetaScope</h1>
+        <h1 className="font-display text-5xl font-extrabold tracking-tight">About PolityWatch</h1>
         <div className="mt-6 space-y-5 text-base leading-relaxed text-foreground">
           <p>
-            NetaScope is a modern, chart-first lens on the Indian Parliament. We make
+            PolityWatch is a modern, chart-first lens on the Indian Parliament. We make
             three things easy for any citizen to read in under a minute:
           </p>
           <ul className="list-inside list-disc space-y-2 pl-2 text-muted-foreground">
