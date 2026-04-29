@@ -23,7 +23,7 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   return (
-    <div className="min-h-screen bg-background bg-grain">
+    <div className="min-h-screen ns-grain">
       <SiteHeader />
       <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
         <h1 className="font-display text-5xl font-extrabold tracking-tight">About PolityWatch</h1>

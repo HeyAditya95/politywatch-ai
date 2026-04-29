@@ -98,7 +98,7 @@ function MPProfile() {
   ].filter((s) => s.value > 0);
 
   return (
-    <div className="min-h-screen bg-background bg-grain">
+    <div className="min-h-screen ns-grain">
       <SiteHeader />
 
       {/* HERO */}

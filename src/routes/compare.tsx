@@ -91,7 +91,7 @@ function ComparePage() {
   }));
 
   return (
-    <div className="min-h-screen bg-background bg-grain">
+    <div className="min-h-screen ns-grain">
       <SiteHeader />
 
       <section className="border-b border-border">
