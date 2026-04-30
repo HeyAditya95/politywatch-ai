@@ -2,6 +2,21 @@ import { Link } from "@tanstack/react-router";
 import { Github } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-provider";
 
+export function DemoDataBanner() {
+  return (
+    <div
+      className="font-mono w-full px-5 py-1.5 text-center text-[0.58rem] uppercase tracking-[0.12em] sm:px-10"
+      style={{
+        background: "color-mix(in oklab, var(--ns-saffron) 18%, var(--ink-bg))",
+        color: "var(--ns-w)",
+        borderBottom: "1px solid var(--ns-rule)",
+      }}
+    >
+      ⚠ Unverified demo data · Not for legal, journalistic, or electoral use · Figures are illustrative only
+    </div>
+  );
+}
+
 export function SiteHeader() {
   return (
     <nav
